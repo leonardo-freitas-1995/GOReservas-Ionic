@@ -1,5 +1,5 @@
 angular.module('goreservas')
-    .factory('UserResource', function($q, RemoteResource) {
+    .factory('BusinessResource', function($q, RemoteResource) {
         var Resource = RemoteResource.resource("/api/business/:id/:client/:search/:filter");
         return {
             getBusiness: function(id){
