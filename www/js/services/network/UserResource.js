@@ -1,6 +1,6 @@
 angular.module('goreservas')
     .factory('UserResource', function($q, RemoteResource) {
-        var Resource = RemoteResource.resource("/api/users/:id");
+        var Resource = RemoteResource.resource("/api/users/:email");
         return {
             authenticateUser: function(email, password){
                 var authentication = new Resource({email: email, password: password});
