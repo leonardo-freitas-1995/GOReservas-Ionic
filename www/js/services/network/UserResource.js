@@ -19,6 +19,42 @@ angular.module('goreservas')
                     }
                 );
                 return dfd.promise;
+            },
+            createUser: function(userData){
+                var newUser = new Resource(userData);
+                var dfd = $q.defer();
+                newUser.$save().then(
+                    function(response){
+                        if (response.success){
+                            dfd.resolve();
+                        }
+                        else{
+                            dfd.reject(response.reason);
+                        }
+                    },
+                    function(error){
+                        dfd.reject(error.name);
+                    }
+                );
+                return dfd.promise;
+            },
+            updateUser: function(email, userData){
+                var userUpdate = new Resource(userData);
+                var dfd = $q.defer();
+                userUpdate.$save({email: email}).then(
+                    function(response){
+                        if (response.success){
+                            dfd.resolve();
+                        }
+                        else{
+                            dfd.reject(response.reason);
+                        }
+                    },
+                    function(error){
+                        dfd.reject(error.name);
+                    }
+                );
+                return dfd.promise;
             }
         }
     });
