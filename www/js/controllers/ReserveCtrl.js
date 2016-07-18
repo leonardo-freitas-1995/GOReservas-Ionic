@@ -58,12 +58,12 @@
             });
         };
 
-        $scope.refresh = function(){
-            refreshReserve();
-        };
-
         $scope.changeRating = function(rating){
             $scope.rating = rating;
+        };
+
+        $scope.refresh = function(){
+            refreshReserve();
         };
 
         function refreshReserve(){
@@ -74,13 +74,16 @@
                         if ($scope.reserve.rated)
                             $scope.rating = $scope.reserve.rating;
                         $scope.loaded = true;
+                        $scope.$broadcast('scroll.refreshComplete');
                     },
                     function(){
                         $scope.loaded = true;
+                        $scope.$broadcast('scroll.refreshComplete');
                     });
             }
             else{
                 $scope.loaded = true;
+                $scope.$broadcast('scroll.refreshComplete');
             }
         }
 

@@ -131,22 +131,29 @@
             return i;
         }
 
-        function refreshReserve(){
+        $scope.refresh = function(){
+            refreshBusiness();
+        };
+
+        function refreshBusiness(){
             var id = $state.params.id;
             if (id && id !== ""){
                 BusinessResource.getBusiness(id).then(function(data){
                         $scope.business = data;
                         $scope.loaded = true;
+                        $scope.$broadcast('scroll.refreshComplete');
                     },
                     function(){
                         $scope.loaded = true;
+                        $scope.$broadcast('scroll.refreshComplete');
                     });
             }
             else{
                 $scope.loaded = true;
+                $scope.$broadcast('scroll.refreshComplete');
             }
         }
 
-        refreshReserve();
+        refreshBusiness();
     }
 })();
