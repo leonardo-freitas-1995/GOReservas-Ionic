@@ -4,7 +4,7 @@
         .factory('RemoteResource', Service);
     Service.$inject = ['$resource'];
     function Service($resource) {
-        var REMOTE_HOST = "http://localhost:8101";
+        var REMOTE_HOST = "http://localhost:8100";
         return {
             resource: function(url){
                 return $resource(
