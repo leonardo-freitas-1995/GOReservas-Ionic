@@ -1,5 +1,9 @@
-angular.module('goreservas')
-    .factory('LocalStorage', function() {
+(function () {
+    angular
+        .module('goreservas')
+        .factory('LocalStorage', Service);
+    Service.$inject = [];
+    function Service() {
         return {
             put: function(key, value){
                 window.localStorage[key] = JSON.stringify(value);
@@ -8,4 +12,5 @@ angular.module('goreservas')
                 return JSON.parse(window.localStorage[key]);
             }
         }
-    });
+    }
+})();

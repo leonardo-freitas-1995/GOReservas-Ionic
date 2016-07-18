@@ -1,5 +1,9 @@
-angular.module('goreservas')
-    .factory('UserIdentity', function(LocalStorage) {
+(function () {
+    angular
+        .module('goreservas')
+        .factory('UserIdentity', Service);
+    Service.$inject = ['LocalStorage'];
+    function Service(LocalStorage) {
         return {
             setUser: function(user){
                 LocalStorage.put("session", user);
@@ -19,4 +23,5 @@ angular.module('goreservas')
                 return this.getCurrentUser() != null;
             }
         }
-    });
+    }
+})();
