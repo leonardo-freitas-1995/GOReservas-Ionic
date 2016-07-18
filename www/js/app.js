@@ -1,6 +1,12 @@
-angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
+(function() {
+    angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource']);
 
-    .run(function($ionicPlatform, $state, $rootScope, Layout) {
+    angular
+        .module('goreservas')
+        .run(AppRun);
+
+    AppRun.$inject = ['$ionicPlatform', '$state', '$rootScope', 'Layout'];
+    function AppRun($ionicPlatform, $state, $rootScope, Layout) {
         $ionicPlatform.ready(function() {
             if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -22,4 +28,5 @@ angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
                 $state.go("welcome");
             }
         });
-    });
+    }
+})();

@@ -1,5 +1,9 @@
-angular.module('goreservas')
-    .config(function($stateProvider, $urlRouterProvider) {
+(function() {
+    angular
+        .module('goreservas')
+        .config(RouteConfig);
+    RouteConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
+    function RouteConfig($stateProvider, $urlRouterProvider) {
 
         function routeRoleCheck(role){
 
@@ -47,4 +51,5 @@ angular.module('goreservas')
 
         $urlRouterProvider.otherwise('/welcome');
 
-    });
+    }
+})();
