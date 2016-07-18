@@ -4,6 +4,9 @@ angular.module('goreservas')
             setUser: function(user){
                 LocalStorage.put("session", user);
             },
+            logout: function(){
+                LocalStorage.put("session", null);
+            },
             getCurrentUser: function(){
                 try{
                     return LocalStorage.get("session");

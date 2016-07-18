@@ -37,7 +37,9 @@
     <ion-side-menus>
         <ion-side-menu side="left">
             <div class="bar bar-header bar-stable">
-                <h1 class="title" ng-show="identity.isAuthenticated()">{{identity.getCurrentUser().name}}</h1>
+                <h1 class="title">
+                    <span ng-if="identity.isAuthenticated()">{{identity.getCurrentUser().name}}</span>
+                </h1>
             </div>
             <br>
             <br>
@@ -69,7 +71,7 @@
                     </a>
                 </li>
                 <li class="item">
-                    <a class="button button-clear button-dark" ng-click="sidemenuClick('search')">
+                    <a class="button button-clear button-dark" ng-click="logout()">
                         <i class="ion-android-exit"></i>
                         Sair
                     </a>

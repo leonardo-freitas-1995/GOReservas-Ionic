@@ -25,6 +25,12 @@ angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
                 $ionicSideMenuDelegate.toggleLeft();
             };
 
+            $rootScope.logout = function(){
+                UserIdentity.logout();
+                $ionicSideMenuDelegate.toggleLeft();
+                $state.go("welcome");
+            };
+
             $rootScope.identity = UserIdentity;
         });
 

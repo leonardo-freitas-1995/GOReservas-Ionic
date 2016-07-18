@@ -1,5 +1,5 @@
 angular.module('goreservas')
-    .controller('WelcomeCtrl', function($scope, $ionicModal, $ionicPopup, ionicToast, UserResource, UserIdentity) {
+    .controller('WelcomeCtrl', function($scope, $ionicModal, $ionicPopup, $state, ionicToast, UserResource, UserIdentity) {
 
         $scope.login = function(){
             $scope.loginInfo = {
@@ -24,7 +24,6 @@ angular.module('goreservas')
                         text: '<b>Entrar</b>',
                         type: 'button-positive',
                         onTap: function(e) {
-                            console.log($scope.loginInfo);
                             if ($scope.loginInfo.email === "" || $scope.loginInfo.password === ""){
                                 ionicToast.show("Preencha todos os campos de login", "top", false, 3000);
                             }
@@ -32,6 +31,8 @@ angular.module('goreservas')
                                 UserResource.authenticateUser($scope.loginInfo.email, $scope.loginInfo.password)
                                     .then(function(user){
                                             UserIdentity.setUser(user);
+                                            loginPopup.close();
+                                            $state.go("dashboard");
                                         },
                                         function(error){
                                             if (error === "authentication failed"){
@@ -117,4 +118,8 @@ angular.module('goreservas')
                 }
             });
         };
+
+        $scope.$on("$destroy", function() {
+            angular.element(document.querySelector('.ionic_toast')).remove();
+        });
     });
