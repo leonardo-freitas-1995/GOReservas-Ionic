@@ -1,6 +1,6 @@
 angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
 
-    .run(function($ionicPlatform, $state, $rootScope, $ionicSideMenuDelegate, UserIdentity) {
+    .run(function($ionicPlatform, $state, $rootScope, $ionicSideMenuDelegate, UserIdentity, $ionicPopup) {
         $ionicPlatform.ready(function() {
 
             if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -26,9 +26,23 @@ angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
             };
 
             $rootScope.logout = function(){
-                UserIdentity.logout();
                 $ionicSideMenuDelegate.toggleLeft();
-                $state.go("welcome");
+                var logoutPopup = $ionicPopup.show({
+                    template: '',
+                    title: 'Logout',
+                    subTitle: 'Deseja mesmo desconectar de sua conta?',
+                    buttons: [
+                        { text: 'Cancelar' },
+                        {
+                            text: '<b>Sair</b>',
+                            type: 'button-assertive',
+                            onTap: function(e) {
+                                UserIdentity.logout();
+                                $state.go("welcome");
+                            }
+                        }
+                    ]
+                });
             };
 
             $rootScope.identity = UserIdentity;
