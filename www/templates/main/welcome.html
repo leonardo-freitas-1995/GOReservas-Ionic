@@ -1,5 +1,67 @@
 <ion-view view-title="Welcome">
-    <ion-content class="padding">
-        <h1>Welcome</h1>
+    <ion-content>
+        <h1 class="center-align">
+            <img class="title-image" src="images/named-logo.PNG">
+        </h1>
+        <ion-slide-box auto-play="true" does-continue="true" show-pager="false">
+            <ion-slide>
+                <img class="title-image banner-img" src="images/index-cover-1.jpg">
+            </ion-slide>
+            <ion-slide>
+                <img class="title-image banner-img" src="images/index-cover-2.jpg">
+            </ion-slide>
+            <ion-slide>
+                <img class="title-image banner-img" src="images/index-cover-3.jpg">
+            </ion-slide>
+        </ion-slide-box>
+        <button class="button button-full button-assertive" ng-click="login()">
+            Entrar
+        </button>
+        <button class="button button-full button-stable" ng-click="register()">
+            Cadastrar
+        </button>
+        <script id="register-modal.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-header-bar>
+                    <h1 class="title">Criar conta</h1>
+                    <button class="button button-icon icon ion-close" ng-click="cancelRegister()"></button>
+                </ion-header-bar>
+                <ion-content>
+                    <div class="list">
+                        <label class="item item-input item-stacked-label padding">
+                            <span class="input-label">Nome Completo</span>
+                            <input type="text" ng-model="newUser.name" placeholder="">
+                        </label>
+                        <label class="item item-input item-stacked-label padding">
+                            <span class="input-label">E-mail</span>
+                            <input type="email" ng-model="newUser.email" placeholder="">
+                        </label>
+                        <label class="item item-input item-stacked-label padding">
+                            <span class="input-label">Senha</span>
+                            <input type="password" ng-model="newUser.password" placeholder="">
+                        </label>
+                        <label class="item item-input item-stacked-label padding">
+                            <span class="input-label">Repita a Senha</span>
+                            <input type="password" ng-model="newUser.repeatPassword" placeholder="">
+                        </label>
+                    </div>
+                    <div ng-if="showRegisterError" ng-click="hideError()" class="card">
+                        <div class="item item-text-wrap item-assertive">
+                            {{registerError}}
+                        </div>
+                    </div>
+                    <div ng-if="makingRegister" class="center-align">
+                        <ion-spinner></ion-spinner>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="center-align">
+                        <button class="button button-balanced" ng-click="finishRegister()">
+                            Cadastrar
+                        </button>
+                    </div>
+                </ion-content>
+            </ion-modal-view>
+        </script>
     </ion-content>
 </ion-view>

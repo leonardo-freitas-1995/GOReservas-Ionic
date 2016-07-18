@@ -1,4 +1,4 @@
-angular.module('goreservas', ['ionic', 'ngResource'])
+angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
 
     .run(function($ionicPlatform, $state, $rootScope, $ionicSideMenuDelegate) {
         $ionicPlatform.ready(function() {

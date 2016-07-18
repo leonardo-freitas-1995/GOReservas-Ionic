@@ -1,6 +1,9 @@
 angular.module('goreservas')
     .factory('UserIdentity', function(LocalStorage) {
         return {
+            setUser: function(user){
+                LocalStorage.put("session", user);
+            },
             getCurrentUser: function(){
                 try{
                     return LocalStorage.get("session");

@@ -1,1 +1,23 @@
-/* Empty. Add your own CSS if you like */
+.center-align {
+    text-align: center;
+}
+
+.banner-img{
+    width: 100%;
+}
+
+.toast_section {
+    color: #FFF;
+    cursor: default;
+    font-size: 1em;
+    border-radius: 2px;
+    opacity: 1;
+    padding: 10px 25px;
+    margin: 10px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.80);
+}
