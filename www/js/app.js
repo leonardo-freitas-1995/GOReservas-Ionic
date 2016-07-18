@@ -1,6 +1,6 @@
 angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
 
-    .run(function($ionicPlatform, $state, $rootScope, $ionicSideMenuDelegate) {
+    .run(function($ionicPlatform, $state, $rootScope, Layout) {
         $ionicPlatform.ready(function() {
 
             if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -12,13 +12,7 @@ angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
                 StatusBar.styleDefault();
             }
 
-            $rootScope.goTo = function(state){
-                $state.go(state);
-            };
-
-            $rootScope.sidemenuToggle = function(){
-                $ionicSideMenuDelegate.toggleLeft();
-            };
+            $rootScope.layout = Layout;
         });
 
         $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
