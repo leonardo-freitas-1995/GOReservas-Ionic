@@ -4,5 +4,48 @@
             <button class="button button-icon icon ion-navicon light" ng-click="layout.sidemenuToggle()"></button>
             <h1 class="title">Início</h1>
         </div>
+        <br>
+        <br>
+        <div>
+            <div class="list">
+                <div class="item item-divider">
+                    Últimas Reservas
+                </div>
+                <a class="item item-avatar" ng-repeat="reserve in lastReserves" ng-href="/reserve?id={{reserve.id}}">
+                    <img ng-src="{{reserve.business.imageURL}}">
+                    <span class="item-note">
+                        <span ng-if="!reserve.confirmed">
+                            Pendente
+                        </span>
+                        <span ng-if="reserve.confirmed">
+                            <span ng-if="!reserve.showedUp">
+                                Confirmada
+                            </span>
+                            <span ng-if="reserve.showedUp">
+                                Utilizada
+                            </span>
+                        </span>
+                    </span>
+                    <h2>{{reserve.business.name}}</h2>
+
+                    <p>{{reserve.date | date:'dd/MM/yyyy - HH:mm'}}</p>
+
+                </a>
+                <div class="item item-divider">
+                    Melhores estabelecimentos
+                </div>
+                <a class="item item-avatar" ng-repeat="business in bestBusiness" ng-href="/business?id={{business.id}}">
+                    <img ng-src="{{business.imageURL}}">
+                    <h2>{{business.name}}</h2>
+                    <p>
+                        <span rating-star="{model: business.rating, rating: 1}"></span>
+                        <span rating-star="{model: business.rating, rating: 2}"></span>
+                        <span rating-star="{model: business.rating, rating: 3}"></span>
+                        <span rating-star="{model: business.rating, rating: 4}"></span>
+                        <span rating-star="{model: business.rating, rating: 5}"></span>
+                    </p>
+                </a>
+            </div>
+        </div>
     </ion-content>
 </ion-view>
