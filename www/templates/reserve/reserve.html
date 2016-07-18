@@ -34,12 +34,9 @@
                 </a>
 
                 <div class="item item-body">
-                    <iframe width='100%' height='auto' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' ng-src="{{makeMapsLink(reserve.business)}}">
-                        <br>
-                        <small><a ng-href="{{makeMapsLink(reserve.business)}}" style='color:#0000FF;text-align:left' target='_blank'>Ver maior</a></small>
-
-                    </iframe>
+                    <div id="map"></div>
                     <p>
+                        <div>{{reserve.observation}}</div>
                         <b>Valor da Reserva: </b> R${{reserve.totalValue}}
                         <div ng-if="reserve.showedUp">
                             <hr>

@@ -155,5 +155,30 @@
         }
 
         refreshBusiness();
+
+        if (typeof google === 'object' && typeof google.maps === 'object') {
+            initializeMap();
+        }
+        else{
+            google.maps.event.addDomListener(window, 'load', initializeMap);
+        }
+
+        function initializeMap(){
+            $scope.$watchGroup([function(){return $scope.business}, function(){return document.getElementById("map")}], function(newValue, oldValue){
+                if ($scope.business && document.getElementById("map")){
+                    var latLng = new google.maps.LatLng($scope.business.latitude, $scope.business.longitude);
+                    var mapOptions = {
+                        center: latLng,
+                        zoom: 15
+                    };
+                    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map: $scope.map,
+                        title: $scope.business.name
+                    });
+                }
+            }, true);
+        }
     }
 })();

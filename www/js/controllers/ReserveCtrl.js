@@ -88,5 +88,30 @@
         }
 
         refreshReserve();
+
+        if (typeof google === 'object' && typeof google.maps === 'object') {
+            initializeMap();
+        }
+        else{
+            google.maps.event.addDomListener(window, 'load', initializeMap);
+        }
+
+        function initializeMap(){
+            $scope.$watchGroup([function(){return $scope.reserve}, function(){return document.getElementById("map")}], function(newValue, oldValue){
+                if ($scope.reserve && document.getElementById("map")){
+                    var latLng = new google.maps.LatLng($scope.reserve.business.latitude, $scope.reserve.business.longitude);
+                    var mapOptions = {
+                        center: latLng,
+                        zoom: 15
+                    };
+                    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map: $scope.map,
+                        title: $scope.reserve.business.name
+                    });
+                }
+            }, true);
+        }
     }
 })();
