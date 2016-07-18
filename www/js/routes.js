@@ -65,6 +65,15 @@
                 resolve: {
                     user: routeRoleCheck("user")
                 }
+            })
+            .state('search-business', {
+                url: '/search-business',
+                cache: false,
+                templateUrl: 'templates/business/search.html',
+                controller: 'SearchBusinessCtrl',
+                resolve: {
+                    user: routeRoleCheck("user")
+                }
             });
 
 

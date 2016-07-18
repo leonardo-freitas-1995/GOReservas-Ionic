@@ -1,0 +1,46 @@
+<ion-view view-title="Procurar Estabelecimentos">
+    <ion-content>
+        <div class="list list-inset">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" ng-model="search.term" placeholder="Pesquisar">
+            </label>
+        </div>
+        <h4>Filtros</h4>
+        <ion-list>
+            <ion-checkbox ng-model="search.filter[0]" ng-true-value="'\'restaurant\''" ng-false-value="undefined">Restaurantes</ion-checkbox>
+            <ion-checkbox ng-model="search.filter[1]" ng-true-value="'\'entertainment\''" ng-false-value="undefined">Entretenimento</ion-checkbox>
+            <ion-checkbox ng-model="search.filter[2]" ng-true-value="'\'other\''" ng-false-value="undefined">Outros</ion-checkbox>
+
+        </ion-list>
+        <div class="center-align padding">
+            <button class="button button-positive" ng-click="makeSearch()">
+                Buscar
+            </button>
+        </div>
+        <div ng-if="!loaded" class="center-align">
+            <br>
+            <ion-spinner></ion-spinner>
+        </div>
+        <h4 class="center-align" ng-if="loaded && !businessArray.length">
+            Sua busca não retornou nenhum estabelecimento.
+        </h4>
+        <div ng-if="loaded && businessArray.length" class="list">
+            <a class="item item-divider">
+                Procurando estabelecimentos
+                <span ng-if="lastSearch !== ''"> por '{{lastSearch}}'</span>
+            </a>
+            <a class="item item-avatar" ng-repeat="business in businessArray" ng-href="/business?id={{business.id}}">
+                <img ng-src="{{business.imageURL}}">
+                <h2>{{business.name}}</h2>
+                <p>
+                    <span rating-star="{model: business.rating, rating: 1}"></span>
+                    <span rating-star="{model: business.rating, rating: 2}"></span>
+                    <span rating-star="{model: business.rating, rating: 3}"></span>
+                    <span rating-star="{model: business.rating, rating: 4}"></span>
+                    <span rating-star="{model: business.rating, rating: 5}"></span>
+                </p>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>
