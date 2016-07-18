@@ -1,5 +1,5 @@
 (function() {
-    angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource']);
+    angular.module('goreservas', ['ionic', 'ngResource']);
 
     angular
         .module('goreservas')

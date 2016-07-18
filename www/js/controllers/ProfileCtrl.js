@@ -11,9 +11,18 @@
         };
 
         $scope.finishUpdate = function(){
+            if ($scope.updateUser.password !== "" && $scope.updateUser.password.length < 6){
+                $ionicPopup.alert({
+                    title: 'A senha deve conter no mínimo 6 caracteres.',
+                    okType: "button-assertive"
+                });
+                return false;
+            }
             if ($scope.updateUser.password !== "" && $scope.updateUser.password !== $scope.updateUser.repeatPassword){
-                $scope.updateError = "As senhas informadas não coincidem.";
-                $scope.showUpdateError = true;
+                $ionicPopup.alert({
+                    title: 'As senhas informadas não coincidem.',
+                    okType: "button-assertive"
+                });
                 return false;
             }
 
@@ -24,17 +33,16 @@
                     user.name = newName;
                     UserIdentity.setUser(user);
                     $state.go("dashboard");
-                    $scope.updating = false;
-                    var alertPopup = $ionicPopup.show({
-                        title: 'Dados atualizados com sucesso!',
-                        buttons: [{ text: 'Ok' }]
+                    $ionicPopup.alert({
+                        title: 'Dados atualizados com sucesso!'
                     });
                 },
                 function(reason){
                     $scope.updating = false;
-                    $scope.updateError = "Não foi possível comunicar com o servidor. Tente novamente mais tarde.";
-                    $scope.showUpdateError = true;
-                    return false;
+                    $ionicPopup.alert({
+                        title: 'Não foi possível comunicar com o servidor. Tente novamente mais tarde.',
+                        okType: "button-assertive"
+                    });
                 });
         };
     }

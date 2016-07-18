@@ -2,9 +2,8 @@
     angular
         .module('goreservas')
         .controller('WelcomeCtrl', Controller);
-    Controller.$inject = ['$scope', '$ionicModal', '$ionicPopup', '$state', 'ionicToast', 'UserResource', 'UserIdentity'];
-    function Controller($scope, $ionicModal, $ionicPopup, $state, ionicToast, UserResource, UserIdentity) {
-        angular.element(document.querySelector('.ionic_toast')).removeClass("display-none");
+    Controller.$inject = ['$scope', '$ionicModal', '$ionicPopup', '$state', 'UserResource', 'UserIdentity'];
+    function Controller($scope, $ionicModal, $ionicPopup, $state, UserResource, UserIdentity) {
 
         $scope.login = function(){
             $scope.loginInfo = {
@@ -30,7 +29,10 @@
                         type: 'button-positive',
                         onTap: function(e) {
                             if ($scope.loginInfo.email === "" || $scope.loginInfo.password === ""){
-                                ionicToast.show("Preencha todos os campos de login", "top", false, 3000);
+                                $ionicPopup.alert({
+                                    title: 'Preencha todos os campos de login.',
+                                    okType: "button-assertive"
+                                });
                             }
                             else{
                                 UserResource.authenticateUser($scope.loginInfo.email, $scope.loginInfo.password)
@@ -41,10 +43,16 @@
                                         },
                                         function(error){
                                             if (error === "authentication failed"){
-                                                ionicToast.show("Email ou senha incorreta.", "top", false, 5000);
+                                                $ionicPopup.alert({
+                                                    title: 'Email ou senha incorreta.',
+                                                    okType: "button-assertive"
+                                                });
                                             }
                                             else{
-                                                ionicToast.show("Não foi possível conectar com o servidor.", "top", false, 5000);
+                                                $ionicPopup.alert({
+                                                    title: 'Não foi possível conectar com o servidor.',
+                                                    okType: "button-assertive"
+                                                });
                                             }
                                         });
                             }
@@ -63,7 +71,6 @@
         });
 
         $scope.register = function(){
-            $scope.showRegisterError = false;
             $scope.makingRegister = false;
             $scope.newUser = {
                 name: "",
@@ -80,52 +87,56 @@
             $scope.modal.hide();
         };
 
-        $scope.hideError = function(){
-            $scope.showRegisterError = false;
-        };
-
         $scope.finishRegister = function(){
-            $scope.showRegisterError = false;
             for (var attr in $scope.newUser){
                 if (!$scope.newUser[attr] || $scope.newUser[attr] === ""){
-                    $scope.registerError = "Preencha todos os campos corretamente.";
-                    $scope.showRegisterError = true;
+                    $ionicPopup.alert({
+                        title: 'Preencha todos os campos corretamente.',
+                        okType: "button-assertive"
+                    });
                     return false;
                 }
             }
             if ($scope.newUser.password.length < 6){
-                $scope.registerError = "A senha deve conter no mínimo 6 caracteres.";
-                $scope.showRegisterError = true;
+                $ionicPopup.alert({
+                    title: 'A senha deve conter no mínimo 6 caracteres.',
+                    okType: "button-assertive"
+                });
                 return false;
             }
             if ($scope.newUser.password !== $scope.newUser.repeatPassword){
-                $scope.registerError = "As senhas informadas não coincidem.";
-                $scope.showRegisterError = true;
+                $ionicPopup.alert({
+                    title: 'As senhas informadas não coincidem.',
+                    okType: "button-assertive"
+                });
                 return false;
             }
             $scope.makingRegister = true;
             UserResource.createUser($scope.newUser).then(function(){
-                    ionicToast.show("Usuário criado com sucesso!", "top", false, 5000);
+                    $ionicPopup.alert({
+                        title: 'Usuário criado com sucesso!',
+                        okType: 'button-balanced'
+                    });
                     $scope.makingRegister = false;
                     $scope.modal.hide();
                 },
                 function(reason){
                     $scope.makingRegister = false;
                     if (reason === "duplicated"){
-                        $scope.registerError = "O email informado já possui um cadastro.";
-                        $scope.showRegisterError = true;
+                        $ionicPopup.alert({
+                            title: 'O email informado já possui um cadastro.',
+                            okType: "button-assertive"
+                        });
                         return false;
                     }
                     else{
-                        $scope.registerError = "Não foi possível comunicar com o servidor. Tente novamente mais tarde.";
-                        $scope.showRegisterError = true;
+                        $ionicPopup.alert({
+                            title: 'Não foi possível comunicar com o servidor. Tente novamente mais tarde.',
+                            okType: "button-assertive"
+                        });
                         return false;
                     }
                 });
         };
-
-        $scope.$on("$destroy", function() {
-            angular.element(document.querySelector('.ionic_toast')).addClass("display-none");
-        });
     }
 })();

@@ -45,11 +45,6 @@
                             <input type="password" ng-model="newUser.repeatPassword" placeholder="">
                         </label>
                     </div>
-                    <div ng-if="showRegisterError" ng-click="hideError()" class="card">
-                        <div class="item item-text-wrap item-assertive">
-                            {{registerError}}
-                        </div>
-                    </div>
                     <div ng-if="makingRegister" class="center-align">
                         <ion-spinner></ion-spinner>
                         <br>
