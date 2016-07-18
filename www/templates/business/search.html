@@ -30,7 +30,7 @@
                 Procurando estabelecimentos
                 <span ng-if="lastSearch !== ''"> por '{{lastSearch}}'</span>
             </a>
-            <a class="item item-avatar" ng-repeat="business in businessArray" ng-href="/business?id={{business.id}}">
+            <a class="item item-avatar" ng-repeat="business in businessArray" ng-href="{{layout.getLink('business', {id: business.id})}}">
                 <img ng-src="{{business.imageURL}}">
                 <h2>{{business.name}}</h2>
                 <p>

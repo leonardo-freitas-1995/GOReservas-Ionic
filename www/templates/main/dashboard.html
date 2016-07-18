@@ -8,7 +8,7 @@
             <div class="item item-divider">
                 Últimas Reservas
             </div>
-            <a class="item item-avatar" ng-repeat="reserve in lastReserves" ng-href="/reserve?id={{reserve.id}}">
+            <a class="item item-avatar" ng-repeat="reserve in lastReserves" ng-href="{{layout.getLink('reserve', {id: reserve.id})}}">
                 <img ng-src="{{reserve.business.imageURL}}">
                 <span class="item-note">
                     <span ng-if="!reserve.confirmed">
@@ -31,7 +31,7 @@
             <div class="item item-divider">
                 Melhores estabelecimentos
             </div>
-            <a class="item item-avatar" ng-repeat="business in bestBusiness" ng-href="/business?id={{business.id}}">
+            <a class="item item-avatar" ng-repeat="business in bestBusiness" ng-href="{{layout.getLink('business', {id: business.id})}}">
                 <img ng-src="{{business.imageURL}}">
                 <h2>{{business.name}}</h2>
                 <p>

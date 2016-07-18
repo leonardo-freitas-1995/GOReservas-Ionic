@@ -66,11 +66,29 @@
                     user: routeRoleCheck("user")
                 }
             })
+            .state('reserve', {
+                url: '/reserve?id',
+                cache: false,
+                templateUrl: 'templates/reserve/reserve.html',
+                controller: 'ReserveCtrl',
+                resolve: {
+                    user: routeRoleCheck("user")
+                }
+            })
             .state('search-business', {
                 url: '/search-business',
                 cache: false,
                 templateUrl: 'templates/business/search.html',
                 controller: 'SearchBusinessCtrl',
+                resolve: {
+                    user: routeRoleCheck("user")
+                }
+            })
+            .state('business', {
+                url: '/business?id',
+                cache: false,
+                templateUrl: 'templates/business/business.html',
+                controller: 'BusinessCtrl',
                 resolve: {
                     user: routeRoleCheck("user")
                 }

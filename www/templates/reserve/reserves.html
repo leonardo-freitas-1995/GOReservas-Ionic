@@ -5,7 +5,7 @@
             on-refresh="refresh()">
         </ion-refresher>
         <div class="list">
-            <a class="item item-avatar" ng-repeat="reserve in reserves" ng-href="/reserve?id={{reserve.id}}">
+            <a class="item item-avatar" ng-repeat="reserve in reserves" ng-href="{{layout.getLink('reserve', {id: reserve.id})}}">
                 <img ng-src="{{reserve.business.imageURL}}">
                 <span class="item-note">
                     <span ng-if="!reserve.confirmed">
