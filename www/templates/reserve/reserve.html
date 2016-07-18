@@ -1,5 +1,77 @@
 <ion-view view-title="Reserva">
     <ion-content>
+        <ion-refresher
+            pulling-text="Puxe para atualizar..."
+            on-refresh="refresh()">
+        </ion-refresher>
+        <div ng-if="!loaded" class="center-align">
+            <br>
+            <ion-spinner></ion-spinner>
+        </div>
+        <h4 class="center-align" ng-if="loaded && !reserve">
+            Não foi possível carregar esta reserva.
+        </h4>
+        <div ng-if="loaded && reserve">
+            <div class="list card">
 
+                <div class="item item-avatar">
+                    <img ng-src="{{reserve.business.imageURL}}">
+                    <span class="item-note">
+                    <span ng-if="!reserve.confirmed">
+                        Pendente
+                    </span>
+                    <span ng-if="reserve.confirmed">
+                        <span ng-if="!reserve.showedUp">
+                            Confirmada
+                        </span>
+                        <span ng-if="reserve.showedUp">
+                            Utilizada
+                        </span>
+                    </span>
+                </span>
+                    <h2>{{reserve.business.name}}</h2>
+                    <p>{{reserve.date | date:'dd/MM/yyyy - HH:mm'}}</p>
+                </div>
+
+                <div class="item item-body">
+                    <iframe width='100%' height='auto' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' ng-src="{{makeMapsLink(reserve.business)}}">
+                        <br>
+                        <small><a ng-href="{{makeMapsLink(reserve.business)}}" style='color:#0000FF;text-align:left' target='_blank'>Ver maior</a></small>
+
+                    </iframe>
+                    <p>
+                        <b>Valor da Reserva: </b> R${{reserve.totalValue}}
+                        <div ng-if="reserve.showedUp">
+                            <hr>
+                            <b>Avaliação desta Reserva:</b>
+                            <div ng-if="reserve.rated">
+                                <span rating-star="{model: rating, rating: 1}"></span>
+                                <span rating-star="{model: rating, rating: 2}"></span>
+                                <span rating-star="{model: rating, rating: 3}"></span>
+                                <span rating-star="{model: rating, rating: 4}"></span>
+                                <span rating-star="{model: rating, rating: 5}"></span>
+                            </div>
+                            <div ng-if="!reserve.rated">
+                                <span ng-click="changeRating(1)" rating-star="{model: rating, rating: 1}"></span>
+                                <span ng-click="changeRating(2)" rating-star="{model: rating, rating: 2}"></span>
+                                <span ng-click="changeRating(3)" rating-star="{model: rating, rating: 3}"></span>
+                                <span ng-click="changeRating(4)" rating-star="{model: rating, rating: 4}"></span>
+                                <span ng-click="changeRating(5)" rating-star="{model: rating, rating: 5}"></span>
+                                <br>
+                                <button class="button button-light" ng-click="rateReserve()">
+                                    Avaliar
+                                </button>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="center-align" ng-if="isBeforeReserve(reserve.date)">
+                <button class="button button-assertive" ng-click="cancelReserve()">
+                    Cancelar Reserva
+                </button>
+            </div>
+
+        </div>
     </ion-content>
 </ion-view>
