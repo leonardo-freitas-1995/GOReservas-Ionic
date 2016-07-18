@@ -1,0 +1,42 @@
+<ion-view view-title="Profile">
+    <ion-content>
+        <div class="bar bar-header bar-assertive">
+            <button class="button button-icon icon ion-navicon light" ng-click="layout.sidemenuToggle()"></button>
+            <h1 class="title">Editar Perfil</h1>
+        </div>
+        <br>
+        <br>
+        <div class="list">
+            <label class="item item-input item-stacked-label padding">
+                <span class="input-label">Nome Completo</span>
+                <input type="text" ng-model="updateUser.name" placeholder="">
+            </label>
+            <label class="item item-input item-stacked-label padding">
+                <span class="input-label">Senha</span>
+                <input type="password" ng-model="updateUser.password" placeholder="">
+            </label>
+            <label class="item item-input item-stacked-label padding">
+                <span class="input-label">Repita a Senha</span>
+                <input type="password" ng-model="updateUser.repeatPassword" placeholder="">
+
+            </label>
+            <small>Deixe o campo de senha em branco caso não deseje altera-la</small>
+        </div>
+
+        <div ng-if="showUpdateError" ng-click="hideError()" class="card">
+            <div class="item item-text-wrap item-assertive">
+                {{updateError}}
+            </div>
+        </div>
+        <div ng-if="updating" class="center-align">
+            <ion-spinner></ion-spinner>
+            <br>
+            <br>
+        </div>
+        <div class="center-align">
+            <button class="button button-balanced" ng-click="finishUpdate()">
+                Salvar
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

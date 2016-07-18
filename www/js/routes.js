@@ -47,7 +47,17 @@
                 resolve: {
                     user: routeRoleCheck("user")
                 }
+            })
+            .state('profile', {
+                url: '/profile',
+                cache: false,
+                templateUrl: 'templates/profile/profile.html',
+                controller: 'ProfileCtrl',
+                resolve: {
+                    user: routeRoleCheck("user")
+                }
             });
+
 
         $urlRouterProvider.otherwise('/welcome');
 
