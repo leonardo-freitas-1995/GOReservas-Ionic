@@ -2,8 +2,8 @@
     angular
         .module('goreservas')
         .controller('WelcomeCtrl', Controller);
-    Controller.$inject = ['$scope', '$ionicModal', '$ionicPopup', '$state', 'UserResource', 'UserIdentity'];
-    function Controller($scope, $ionicModal, $ionicPopup, $state, UserResource, UserIdentity) {
+    Controller.$inject = ['$scope', '$ionicModal', '$ionicPopup', '$state', 'Toast', 'UserResource', 'UserIdentity'];
+    function Controller($scope, $ionicModal, $ionicPopup, $state, Toast, UserResource, UserIdentity) {
 
         $scope.login = function(){
             $scope.loginInfo = {
@@ -29,10 +29,7 @@
                         type: 'button-positive',
                         onTap: function(e) {
                             if ($scope.loginInfo.email === "" || $scope.loginInfo.password === ""){
-                                $ionicPopup.alert({
-                                    title: 'Preencha todos os campos de login.',
-                                    okType: "button-assertive"
-                                });
+                                Toast.error('Preencha todos os campos de login.');
                             }
                             else{
                                 UserResource.authenticateUser($scope.loginInfo.email, $scope.loginInfo.password)
@@ -43,16 +40,10 @@
                                         },
                                         function(error){
                                             if (error === "authentication failed"){
-                                                $ionicPopup.alert({
-                                                    title: 'Email ou senha incorreta.',
-                                                    okType: "button-assertive"
-                                                });
+                                                Toast.error('Email ou senha incorreta.');
                                             }
                                             else{
-                                                $ionicPopup.alert({
-                                                    title: 'Não foi possível conectar com o servidor.',
-                                                    okType: "button-assertive"
-                                                });
+                                                Toast.error('Não foi possível conectar com o servidor.');
                                             }
                                         });
                             }
@@ -90,50 +81,32 @@
         $scope.finishRegister = function(){
             for (var attr in $scope.newUser){
                 if (!$scope.newUser[attr] || $scope.newUser[attr] === ""){
-                    $ionicPopup.alert({
-                        title: 'Preencha todos os campos corretamente.',
-                        okType: "button-assertive"
-                    });
+                    Toast.error('Preencha todos os campos corretamente.');
                     return false;
                 }
             }
             if ($scope.newUser.password.length < 6){
-                $ionicPopup.alert({
-                    title: 'A senha deve conter no mínimo 6 caracteres.',
-                    okType: "button-assertive"
-                });
+                Toast.error('A senha deve conter no mínimo 6 caracteres.');
                 return false;
             }
             if ($scope.newUser.password !== $scope.newUser.repeatPassword){
-                $ionicPopup.alert({
-                    title: 'As senhas informadas não coincidem.',
-                    okType: "button-assertive"
-                });
+                Toast.error('As senhas informadas não coincidem.');
                 return false;
             }
             $scope.makingRegister = true;
             UserResource.createUser($scope.newUser).then(function(){
-                    $ionicPopup.alert({
-                        title: 'Usuário criado com sucesso!',
-                        okType: 'button-balanced'
-                    });
+                    Toast.success('Usuário criado com sucesso!');
                     $scope.makingRegister = false;
                     $scope.modal.hide();
                 },
                 function(reason){
                     $scope.makingRegister = false;
                     if (reason === "duplicated"){
-                        $ionicPopup.alert({
-                            title: 'O email informado já possui um cadastro.',
-                            okType: "button-assertive"
-                        });
+                        Toast.error('O email informado já possui um cadastro.');
                         return false;
                     }
                     else{
-                        $ionicPopup.alert({
-                            title: 'Não foi possível comunicar com o servidor. Tente novamente mais tarde.',
-                            okType: "button-assertive"
-                        });
+                        Toast.error('Não foi possível comunicar com o servidor. Tente novamente mais tarde.');
                         return false;
                     }
                 });

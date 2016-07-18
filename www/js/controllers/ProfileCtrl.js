@@ -2,8 +2,8 @@
     angular
         .module('goreservas')
         .controller('ProfileCtrl', Controller);
-    Controller.$inject = ['$scope', '$state', '$ionicPopup', 'UserIdentity', 'UserResource'];
-    function Controller($scope, $state, $ionicPopup, UserIdentity, UserResource) {
+    Controller.$inject = ['$scope', '$state', 'Toast', 'UserIdentity', 'UserResource'];
+    function Controller($scope, $state, Toast, UserIdentity, UserResource) {
         $scope.updateUser = {
             name: UserIdentity.getCurrentUser().name,
             password: "",
@@ -12,17 +12,11 @@
 
         $scope.finishUpdate = function(){
             if ($scope.updateUser.password !== "" && $scope.updateUser.password.length < 6){
-                $ionicPopup.alert({
-                    title: 'A senha deve conter no mínimo 6 caracteres.',
-                    okType: "button-assertive"
-                });
+                Toast.error('A senha deve conter no mínimo 6 caracteres.');
                 return false;
             }
             if ($scope.updateUser.password !== "" && $scope.updateUser.password !== $scope.updateUser.repeatPassword){
-                $ionicPopup.alert({
-                    title: 'As senhas informadas não coincidem.',
-                    okType: "button-assertive"
-                });
+                Toast.error('As senhas informadas não coincidem.');
                 return false;
             }
 
@@ -33,16 +27,11 @@
                     user.name = newName;
                     UserIdentity.setUser(user);
                     $state.go("dashboard");
-                    $ionicPopup.alert({
-                        title: 'Dados atualizados com sucesso!'
-                    });
+                    Toast.info('Dados atualizados com sucesso!');
                 },
                 function(reason){
                     $scope.updating = false;
-                    $ionicPopup.alert({
-                        title: 'Não foi possível comunicar com o servidor. Tente novamente mais tarde.',
-                        okType: "button-assertive"
-                    });
+                    Toast.error('Não foi possível comunicar com o servidor. Tente novamente mais tarde.');
                 });
         };
     }
