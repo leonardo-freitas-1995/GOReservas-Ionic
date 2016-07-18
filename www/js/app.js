@@ -2,7 +2,6 @@ angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
 
     .run(function($ionicPlatform, $state, $rootScope, Layout) {
         $ionicPlatform.ready(function() {
-
             if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 cordova.plugins.Keyboard.disableScroll(true);
@@ -11,9 +10,9 @@ angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
             if (window.StatusBar) {
                 StatusBar.styleDefault();
             }
-
-            $rootScope.layout = Layout;
         });
+
+        $rootScope.layout = Layout;
 
         $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
             if (error === "already authenticated"){
@@ -23,54 +22,4 @@ angular.module('goreservas', ['ionic', 'ionic-toast', 'ngResource'])
                 $state.go("welcome");
             }
         });
-    })
-
-    .config(function($stateProvider, $urlRouterProvider) {
-
-        function routeRoleCheck(role){
-
-            AuthService.$inject = ['$q', 'UserIdentity'];
-            function AuthService($q, UserIdentity){
-                var routeCheck = {
-                    user: function(){
-                        if (UserIdentity.isAuthenticated()) {
-                            return true;
-                        }
-                        return $q.reject('not authenticated');
-                    },
-                    notuser: function(){
-                        if (!UserIdentity.isAuthenticated()) {
-                            return true;
-                        }
-                        return $q.reject('already authenticated');
-                    }
-                };
-
-                return routeCheck[role]();
-            }
-            return AuthService;
-        }
-
-        $stateProvider
-            .state('welcome', {
-                url: '/welcome',
-                cache: false,
-                templateUrl: 'templates/main/welcome.html',
-                controller: 'WelcomeCtrl',
-                resolve: {
-                    notuser: routeRoleCheck("notuser")
-                }
-            })
-            .state('dashboard', {
-                url: '/dashboard',
-                cache: false,
-                templateUrl: 'templates/main/dashboard.html',
-                controller: 'DashboardCtrl',
-                resolve: {
-                    user: routeRoleCheck("user")
-                }
-            });
-
-        $urlRouterProvider.otherwise('/welcome');
-
     });
