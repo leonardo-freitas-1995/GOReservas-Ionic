@@ -7,19 +7,29 @@
         $scope.bestBusiness = [];
         $scope.lastReserves = [];
 
+        var refreshing = 0;
+
         function refreshData(){
+            refreshing = 0;
             BusinessResource.getBestBusiness()
                 .then(function(data){
                     $scope.bestBusiness = data;
-                    $scope.$broadcast('scroll.refreshComplete')
+                        finishRefresh();
                 },
-                function(){$scope.$broadcast('scroll.refreshComplete')});
+                function(){finishRefresh();});
             ReserveResource.getLastReserves(UserIdentity.getCurrentUser().id)
                 .then(function(data){
                     $scope.lastReserves = data;
-                    $scope.$broadcast('scroll.refreshComplete')
+                    finishRefresh();
                 },
-                function(){$scope.$broadcast('scroll.refreshComplete')});
+                function(){finishRefresh();});
+        }
+
+        function finishRefresh(){
+            refreshing++;
+            if (refreshing === 2){
+                $scope.$broadcast('scroll.refreshComplete')
+            }
         }
 
         $scope.refresh = function(){
