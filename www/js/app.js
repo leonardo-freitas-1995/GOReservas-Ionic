@@ -1,5 +1,5 @@
 (function() {
-    angular.module('goreservas', ['ionic', 'ngResource']);
+    angular.module('goreservas', ['ionic', 'ionic-datepicker', 'ionic-timepicker', 'ngResource']);
 
     angular
         .module('goreservas')

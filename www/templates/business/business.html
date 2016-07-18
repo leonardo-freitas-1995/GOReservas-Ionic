@@ -1,5 +1,101 @@
 <ion-view view-title="Estabelecimento">
     <ion-content>
+        <ion-refresher
+            pulling-text="Puxe para atualizar..."
+            on-refresh="refresh()">
+        </ion-refresher>
+        <div ng-if="!loaded" class="center-align">
+            <br>
+            <ion-spinner></ion-spinner>
+        </div>
+        <h4 class="center-align" ng-if="loaded && !business">
+            Não foi possível carregar este estabelecimento.
+        </h4>
+        <div ng-if="loaded && business">
+            <div class="list card">
 
+                <div class="item item-avatar">
+                    <img ng-src="{{business.imageURL}}">
+                    <h2>{{business.name}}</h2>
+                    <p>
+                        <span rating-star="{model: business.rating, rating: 1}"></span>
+                        <span rating-star="{model: business.rating, rating: 2}"></span>
+                        <span rating-star="{model: business.rating, rating: 3}"></span>
+                        <span rating-star="{model: business.rating, rating: 4}"></span>
+                        <span rating-star="{model: business.rating, rating: 5}"></span>
+                    </p>
+                </div>
+
+                <div class="item item-body">
+                    <iframe width='100%' height='auto' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' ng-src="{{makeMapsLink(business)}}">
+                        <br>
+                        <small><a ng-href="{{makeMapsLink(business)}}" style='color:#0000FF;text-align:left' target='_blank'>Ver maior</a></small>
+
+                    </iframe>
+                    <p>
+                        {{business.description}}
+                    </p>
+                </div>
+            </div>
+            <div class="center-align">
+                <button class="button button-balanced" ng-click="createReserve()">
+                    Realizar Reserva
+                </button>
+            </div>
+        </div>
+        <script id="reserve-modal.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-header-bar>
+                    <h1 class="title">Realizar Reserva</h1>
+                    <button class="button button-icon icon ion-close" ng-click="cancelReserve()"></button>
+                </ion-header-bar>
+                <ion-content>
+                    <ul class="list">
+                        <li class="item">
+                            <span class="item-note">
+                                <button class="button button-positive button-small" ng-click="openDatePicker()">
+                                Mudar data
+                            </button>
+                            </span>
+                            Data: {{newReserve.day | date:'dd/MM/yyyy'}}
+                        </li>
+                        <li class="item">
+                            <span class="item-note">
+                                <button class="button button-positive button-small" ng-click="openTimePicker()">
+                                Mudar hora
+                            </button>
+                            </span>
+                            Hora: {{newReserve.hour | date:'HH:mm'}}
+                        </li>
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Pessoas (Entre {{business.minPerReserve}} e {{business.maxPerReserve}})</span>
+                            <input type='number' ng-model="newReserve.quantity" placeholder="Pessoas (Entre {{business.minPerReserve}} e {{business.maxPerReserve}})">
+                        </label>
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Obervações</span>
+                            <textarea ng-model="newReserve.observation" placeholder="Observações"></textarea>
+                        </label>
+                        <label class="item">
+                            Preço por reserva:
+                            <span class="badge badge-stable">{{business.pricePerReserve}}</span>
+                        </label>
+                        <label class="item">
+                            Preço por pessoa:
+                            <span class="badge badge-stable">{{business.pricePerPerson}}</span>
+                        </label>
+                        <label class="item">
+                            Total da reserva:
+                            <span class="badge badge-stable">{{getTotalReserve()}}</span>
+                        </label>
+                    </ul>
+                    <small>Não inclui gastos extras no local. O preço aqui é apenas informativo, o pagamento é realizado no local.</small>
+                    <div class="center-align">
+                        <button class="button button-balanced" ng-click="finishReserve()">
+                            Realizar Reserva
+                        </button>
+                    </div>
+                </ion-content>
+            </ion-modal-view>
+        </script>
     </ion-content>
 </ion-view>
