@@ -1,5 +1,6 @@
 angular.module('goreservas')
     .controller('WelcomeCtrl', function($scope, $ionicModal, $ionicPopup, $state, ionicToast, UserResource, UserIdentity) {
+        angular.element(document.querySelector('.ionic_toast')).removeClass("display-none");
 
         $scope.login = function(){
             $scope.loginInfo = {
@@ -120,6 +121,6 @@ angular.module('goreservas')
         };
 
         $scope.$on("$destroy", function() {
-            angular.element(document.querySelector('.ionic_toast')).remove();
+            angular.element(document.querySelector('.ionic_toast')).addClass("display-none");
         });
     });
