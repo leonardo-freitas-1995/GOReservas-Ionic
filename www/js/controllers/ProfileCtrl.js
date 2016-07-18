@@ -23,7 +23,7 @@
             $scope.updating = true;
             var newName = $scope.updateUser.name;
             UserResource.updateUser(UserIdentity.getCurrentUser().email, $scope.updateUser).then(function(){
-                    var user = UserIdentity;
+                    var user = UserIdentity.getCurrentUser();
                     user.name = newName;
                     UserIdentity.setUser(user);
                     $state.go("dashboard");
