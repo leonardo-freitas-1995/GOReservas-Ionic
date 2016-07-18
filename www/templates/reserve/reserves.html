@@ -1,0 +1,30 @@
+<ion-view view-title="Minhas Reservas">
+    <ion-content>
+        <ion-refresher
+            pulling-text="Puxe para atualizar..."
+            on-refresh="refresh()">
+        </ion-refresher>
+        <div class="list">
+            <a class="item item-avatar" ng-repeat="reserve in reserves" ng-href="/reserve?id={{reserve.id}}">
+                <img ng-src="{{reserve.business.imageURL}}">
+                <span class="item-note">
+                    <span ng-if="!reserve.confirmed">
+                        Pendente
+                    </span>
+                    <span ng-if="reserve.confirmed">
+                        <span ng-if="!reserve.showedUp">
+                            Confirmada
+                        </span>
+                        <span ng-if="reserve.showedUp">
+                            Utilizada
+                        </span>
+                    </span>
+                </span>
+                <h2>{{reserve.business.name}}</h2>
+
+                <p>{{reserve.date | date:'dd/MM/yyyy - HH:mm'}}</p>
+
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

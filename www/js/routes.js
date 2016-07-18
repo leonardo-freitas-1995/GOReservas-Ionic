@@ -56,6 +56,15 @@
                 resolve: {
                     user: routeRoleCheck("user")
                 }
+            })
+            .state('reserves', {
+                url: '/reserves',
+                cache: false,
+                templateUrl: 'templates/reserve/reserves.html',
+                controller: 'ReservesCtrl',
+                resolve: {
+                    user: routeRoleCheck("user")
+                }
             });
 
 
