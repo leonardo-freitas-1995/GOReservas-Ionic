@@ -28,11 +28,7 @@
                 ]
             });
         };
-
-        $scope.isAuthenticated = function(){
-            return UserIdentity.isAuthenticated();
-        };
-
+        
         $scope.getAuthenticatedInfo = function(info){
             return UserIdentity.getCurrentUser()[info];
         };
