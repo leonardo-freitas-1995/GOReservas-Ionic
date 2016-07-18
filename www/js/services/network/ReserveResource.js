@@ -1,5 +1,9 @@
-angular.module('goreservas')
-    .factory('ReserveResource', function($q, RemoteResource) {
+(function () {
+    angular
+        .module('goreservas')
+        .factory('ReserveResource', Service);
+    Service.$inject = ['$q', 'RemoteResource'];
+    function Service($q, RemoteResource) {
         var Resource = RemoteResource.resource("/api/reserve/:id/:business/:date/:client");
         return {
             createReserve: function (reserveData) {
@@ -120,4 +124,5 @@ angular.module('goreservas')
                 return dfd.promise;
             }
         }
-    });
+    }
+})();

@@ -1,5 +1,9 @@
-angular.module('goreservas')
-    .factory('UserResource', function($q, RemoteResource) {
+(function () {
+    angular
+        .module('goreservas')
+        .factory('UserResource', Service);
+    Service.$inject = ['$q', 'RemoteResource'];
+    function Service($q, RemoteResource) {
         var Resource = RemoteResource.resource("/api/users/:email");
         return {
             authenticateUser: function(email, password){
@@ -57,4 +61,5 @@ angular.module('goreservas')
                 return dfd.promise;
             }
         }
-    });
+    }
+})();

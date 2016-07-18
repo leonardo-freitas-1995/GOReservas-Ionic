@@ -1,5 +1,9 @@
-angular.module('goreservas')
-    .factory('RemoteResource', function($resource) {
+(function () {
+    angular
+        .module('goreservas')
+        .factory('RemoteResource', Service);
+    Service.$inject = [];
+    function Service() {
         var REMOTE_HOST = "http://localhost:8101";
         return {
             resource: function(url){
@@ -13,4 +17,5 @@ angular.module('goreservas')
                 );
             }
         }
-    });
+    }
+})();
