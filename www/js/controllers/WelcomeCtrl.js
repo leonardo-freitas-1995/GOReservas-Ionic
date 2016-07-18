@@ -1,5 +1,9 @@
-angular.module('goreservas')
-    .controller('WelcomeCtrl', function($scope, $ionicModal, $ionicPopup, $state, ionicToast, UserResource, UserIdentity) {
+(function () {
+    angular
+        .module('goreservas')
+        .controller('WelcomeCtrl', Controller);
+    Controller.$inject = ['$scope', '$ionicModal', '$ionicPopup', '$state', 'ionicToast', 'UserResource', 'UserIdentity'];
+    function Controller($scope, $ionicModal, $ionicPopup, $state, ionicToast, UserResource, UserIdentity) {
         angular.element(document.querySelector('.ionic_toast')).removeClass("display-none");
 
         $scope.login = function(){
@@ -9,13 +13,13 @@ angular.module('goreservas')
             };
             var loginPopup = $ionicPopup.show({
                 template: '<div class="list">' +
-                            '<label class="item item-input">' +
-                                '<input type="text" placeholder="Email" ng-model="loginInfo.email">' +
-                            '</label>' +
-                            '<label class="item item-input">' +
-                                '<input type="password" placeholder="Senha" ng-model="loginInfo.password">' +
-                            '</label>' +
-                        '</div>',
+                '<label class="item item-input">' +
+                '<input type="text" placeholder="Email" ng-model="loginInfo.email">' +
+                '</label>' +
+                '<label class="item item-input">' +
+                '<input type="password" placeholder="Senha" ng-model="loginInfo.password">' +
+                '</label>' +
+                '</div>',
                 title: 'Login',
                 subTitle: 'Informe suas credenciais do GOReservas',
                 scope: $scope,
@@ -42,7 +46,7 @@ angular.module('goreservas')
                                             else{
                                                 ionicToast.show("Não foi possível conectar com o servidor.", "top", false, 5000);
                                             }
-                                    });
+                                        });
                             }
                             e.preventDefault();
                         }
@@ -101,26 +105,27 @@ angular.module('goreservas')
             }
             $scope.makingRegister = true;
             UserResource.createUser($scope.newUser).then(function(){
-                ionicToast.show("Usuário criado com sucesso!", "top", false, 5000);
-                $scope.makingRegister = false;
-                $scope.modal.hide();
-            },
-            function(reason){
-                $scope.makingRegister = false;
-                if (reason === "duplicated"){
-                    $scope.registerError = "O email informado já possui um cadastro.";
-                    $scope.showRegisterError = true;
-                    return false;
-                }
-                else{
-                    $scope.registerError = "Não foi possível comunicar com o servidor. Tente novamente mais tarde.";
-                    $scope.showRegisterError = true;
-                    return false;
-                }
-            });
+                    ionicToast.show("Usuário criado com sucesso!", "top", false, 5000);
+                    $scope.makingRegister = false;
+                    $scope.modal.hide();
+                },
+                function(reason){
+                    $scope.makingRegister = false;
+                    if (reason === "duplicated"){
+                        $scope.registerError = "O email informado já possui um cadastro.";
+                        $scope.showRegisterError = true;
+                        return false;
+                    }
+                    else{
+                        $scope.registerError = "Não foi possível comunicar com o servidor. Tente novamente mais tarde.";
+                        $scope.showRegisterError = true;
+                        return false;
+                    }
+                });
         };
 
         $scope.$on("$destroy", function() {
             angular.element(document.querySelector('.ionic_toast')).addClass("display-none");
         });
-    });
+    }
+})();

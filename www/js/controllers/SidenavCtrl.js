@@ -1,5 +1,9 @@
-angular.module('goreservas')
-    .controller('SidenavCtrl', function($scope, $state, $ionicSideMenuDelegate, $ionicPopup, UserIdentity) {
+(function () {
+    angular
+        .module('goreservas')
+        .controller('SidenavCtrl', Controller);
+    Controller.$inject = ['$scope', '$state', '$ionicSideMenuDelegate', '$ionicPopup', 'UserIdentity'];
+    function Controller($scope, $state, $ionicSideMenuDelegate, $ionicPopup, UserIdentity) {
         $scope.sidemenuClick = function(state){
             $state.go(state);
             $ionicSideMenuDelegate.toggleLeft();
@@ -24,13 +28,13 @@ angular.module('goreservas')
                 ]
             });
         };
-        
+
         $scope.isAuthenticated = function(){
             return UserIdentity.isAuthenticated();
         };
-        
+
         $scope.getAuthenticatedInfo = function(info){
             return UserIdentity.getCurrentUser()[info];
         };
-        
-    });
+    }
+})();

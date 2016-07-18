@@ -2,8 +2,8 @@
     angular
         .module('goreservas')
         .factory('RemoteResource', Service);
-    Service.$inject = [];
-    function Service() {
+    Service.$inject = ['$resource'];
+    function Service($resource) {
         var REMOTE_HOST = "http://localhost:8101";
         return {
             resource: function(url){

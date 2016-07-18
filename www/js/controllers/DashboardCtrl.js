@@ -1,4 +1,8 @@
-angular.module('goreservas')
-    .controller('DashboardCtrl', function($scope) {
-
-    });
+(function () {
+    angular
+        .module('goreservas')
+        .controller('DashboardCtrl', Controller);
+    Controller.$inject = ['$scope'];
+    function Controller($scope) {
+    }
+})();
