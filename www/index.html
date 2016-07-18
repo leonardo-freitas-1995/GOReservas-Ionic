@@ -20,6 +20,7 @@
 
     <!-- Controllers -->
     <script src="js/controllers/WelcomeCtrl.js"></script>
+    <script src="js/controllers/DashboardCtrl.js"></script>
 
     <!-- Services -->
     <script src="js/services/tools/LocalStorage.js"></script>
@@ -33,31 +34,51 @@
 <!--
   The nav bar that will be updated as we navigate between views.
 -->
-<ion-side-menus>
-    <ion-side-menu side="left">
-        <div class="bar bar-header bar-stable">
-            <h1 class="title">Menu</h1>
-        </div>
-        <br>
-        <br>
-        <ul class="list">
-            <li class="item">
-                <a class="button button-clear button-dark" ng-click="sidemenuClick('dashboard')">
-                    <i class="ion-ios-circle-filled"></i>
-                    Emergência
-                </a>
-            </li>
-        </ul>
-    </ion-side-menu>
-    <ion-side-menu-content>
-        <ion-nav-view></ion-nav-view>
-    </ion-side-menu-content>
-</ion-side-menus>
-<!--
-  The views will be rendered in the <ion-nav-view> directive below
-  Templates are in the /templates folder (but you could also
-  have templates inline in this html file if you'd like).
--->
-<ion-nav-view></ion-nav-view>
+    <ion-side-menus>
+        <ion-side-menu side="left">
+            <div class="bar bar-header bar-stable">
+                <h1 class="title" ng-show="identity.isAuthenticated()">{{identity.getCurrentUser().name}}</h1>
+            </div>
+            <br>
+            <br>
+            <ul class="list">
+                <li class="item item-divider">Navegar</li>
+                <li class="item">
+                    <a class="button button-clear button-dark" ng-click="sidemenuClick('dashboard')">
+                        <i class="ion-home"></i>
+                        Inicio
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="button button-clear button-dark" ng-click="sidemenuClick('reserves')">
+                        <i class="ion-calendar"></i>
+                        Minhas Reservas
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="button button-clear button-dark" ng-click="sidemenuClick('search')">
+                        <i class="ion-search"></i>
+                        Procurar Estabelecimentos
+                    </a>
+                </li>
+                <li class="item item-divider">Minha Conta</li>
+                <li class="item">
+                    <a class="button button-clear button-dark" ng-click="sidemenuClick('profile')">
+                        <i class="ion-person"></i>
+                        Editar Perfil
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="button button-clear button-dark" ng-click="sidemenuClick('search')">
+                        <i class="ion-android-exit"></i>
+                        Sair
+                    </a>
+                </li>
+            </ul>
+        </ion-side-menu>
+        <ion-side-menu-content>
+            <ion-nav-view></ion-nav-view>
+        </ion-side-menu-content>
+    </ion-side-menus>
 </body>
 </html>

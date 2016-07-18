@@ -1,6 +1,5 @@
 angular.module('goreservas')
-    .controller('WelcomeCtrl', function($scope, $ionicModal, $ionicPopup, ionicToast, UserResource) {
-
+    .controller('WelcomeCtrl', function($scope, $ionicModal, $ionicPopup, ionicToast, UserResource, UserIdentity) {
 
         $scope.login = function(){
             $scope.loginInfo = {

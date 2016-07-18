@@ -1,6 +1,6 @@
 angular.module('goreservas')
     .factory('RemoteResource', function($resource) {
-        var REMOTE_HOST = "http://localhost:8100";
+        var REMOTE_HOST = "http://localhost:8101";
         return {
             resource: function(url){
                 return $resource(
