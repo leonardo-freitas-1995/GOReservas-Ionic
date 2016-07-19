@@ -14,6 +14,7 @@
         $scope.loaded = false;
 
         $scope.makeSearch = function(){
+            cordova.plugins.Keyboard.close();
             if (!$scope.search.filter.filter(function(val){return val != null;}).length){
                 Toast.error("É preciso selecionar pelo menos um dos filtros para efetuar a busca.");
                 return false;
