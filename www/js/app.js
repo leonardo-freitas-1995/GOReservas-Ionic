@@ -16,6 +16,21 @@
             if (window.StatusBar) {
                 StatusBar.styleDefault();
             }
+
+            $ionicPlatform.registerBackButtonAction(function(e){
+
+                if($state.is('welcome') || $state.is('dashboard')){
+                    if (typeof ionic === 'object'){
+                        ionic.Platform.exitApp();
+                    }
+                    e.preventDefault();
+                }
+                else{
+                    Layout.goBack();
+                    e.preventDefault();
+                }
+
+            });
         });
 
         $rootScope.layout = Layout;
@@ -26,6 +41,21 @@
             }
             else{
                 $state.go("welcome");
+            }
+        });
+
+        $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+            var stateRecord = {
+                name: from.name,
+                param: fromParams
+            };
+            if (from.name === "")
+                stateRecord.name = "dashboard";
+
+            Layout.recordState(to.name, stateRecord);
+
+            if (to.name !== "welcome"){
+                $ionicSideMenuDelegate.canDragContent(true);
             }
         });
     }

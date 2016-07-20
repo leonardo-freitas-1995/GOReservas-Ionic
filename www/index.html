@@ -51,52 +51,43 @@
 -->
     <ion-side-menus>
         <ion-side-menu ng-controller="SidenavCtrl" side="left">
-            <div class="bar bar-header bar-stable">
-                <h1 class="title">
-                    <span ng-if="layout.isAuthenticated()">{{getAuthenticatedInfo("name")}}</span>
-                </h1>
+            <div class="list card sidenav-card">
+                <div ng-if="layout.isAuthenticated()" class="item item-avatar">
+                    <img src="images/default_avatar.png">
+                    <h2>{{getAuthenticatedInfo("name")}}</h2>
+                    <p>{{getAuthenticatedInfo("email")}}</p>
+                </div>
             </div>
-            <br>
-            <br>
-            <ul class="list">
-                <li class="item item-divider">Navegar</li>
-                <li class="item">
-                    <a class="button button-clear button-dark" ng-click="sidemenuClick('dashboard')">
-                        <i class="ion-home"></i>
-                        Inicio
-                    </a>
-                </li>
-                <li class="item">
-                    <a class="button button-clear button-dark" ng-click="sidemenuClick('reserves')">
-                        <i class="ion-calendar"></i>
-                        Minhas Reservas
-                    </a>
-                </li>
-                <li class="item">
-                    <a class="button button-clear button-dark" ng-click="sidemenuClick('search-business')">
-                        <i class="ion-search"></i>
-                        Procurar Estabelecimentos
-                    </a>
-                </li>
-                <li class="item item-divider">Minha Conta</li>
-                <li class="item">
-                    <a class="button button-clear button-dark" ng-click="sidemenuClick('profile')">
-                        <i class="ion-person"></i>
-                        Editar Perfil
-                    </a>
-                </li>
-                <li class="item">
-                    <a class="button button-clear button-dark" ng-click="logout()">
-                        <i class="ion-android-exit"></i>
-                        Sair
-                    </a>
-                </li>
+            <ul class="list sidenav-list">
+                <a class="item item-icon-left" ng-click="sidemenuClick('dashboard')">
+                    <i class="icon ion-home"></i>
+                    Inicio
+                </a>
+                <a class="item  item-icon-left" ng-click="sidemenuClick('reserves')">
+                    <i class="icon ion-calendar"></i>
+                    Minhas Reservas
+                </a>
+                <a class="item item-icon-left" ng-click="sidemenuClick('search-business')">
+                    <i class="icon ion-search"></i>
+                    Procurar Estabelecimentos
+                </a>
+                <a class="item item-divider"></a>
+                <a href="" class="item item-subitem">Minha conta</a>
+                <a class="item item-icon-left" ng-click="sidemenuClick('profile')">
+                    <i class="icon ion-person"></i>
+                    Editar Perfil
+                </a>
+                <a class="item item-icon-left" ng-click="logout()">
+                    <i class="icon ion-android-exit"></i>
+                    Sair
+                </a>
             </ul>
         </ion-side-menu>
         <ion-side-menu-content>
             <ion-nav-bar ng-show="layout.isAuthenticated()" class="bar-assertive">
-                <ion-nav-buttons side="primary">
-                    <button class="button button-icon icon ion-navicon light" ng-click="layout.sidemenuToggle()"></button>
+                <ion-nav-buttons side="left">
+                    <button class="button button-icon icon ion-navicon light" ng-show="layout.isPrimary()" ng-click="layout.sidemenuToggle()"></button>
+                    <button class="button button-icon icon ion-android-arrow-back light" ng-show="!layout.isPrimary()" ng-click="layout.goBack()"></button>
                 </ion-nav-buttons>
             </ion-nav-bar>
             <ion-nav-view>

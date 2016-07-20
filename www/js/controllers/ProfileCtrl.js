@@ -29,9 +29,9 @@
                     $state.go("dashboard");
                     Toast.info('Dados atualizados com sucesso!');
                 },
-                function(reason){
+                function(){
                     $scope.updating = false;
-                    Toast.error('Não foi possível comunicar com o servidor. Tente novamente mais tarde.');
+                    Toast.error('Não foi possível comunicar com o servidor. Verifique sua conexão com a internet.');
                 });
         };
     }

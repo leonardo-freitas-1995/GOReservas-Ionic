@@ -42,14 +42,14 @@
                         onTap: function(e) {
                             ReserveResource.cancelReserve($scope.reserve.id, new Date($scope.reserve.date).getTime()).then(function(response){
                                     Toast.success("Reserva cancelada com sucesso.");
-                                    $state.go("dashboard")
+                                    $state.go("dashboard", {}, {reload: true});
                                 },
                                 function(reason){
                                     if (reason === "ahead of time"){
                                         Toast.error("Não é possível cancelar uma reserva que já passou de sua data.");
                                     }
                                     else{
-                                        Toast.error("Não foi possível completar esta ação");
+                                        Toast.error("Não foi possível completar esta ação. O servidor não está respondendo corretamente ou seu dispositivo não possui sinal de internet.");
                                     }
                                 });
                         }

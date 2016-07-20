@@ -41,7 +41,7 @@
             })
             .state('dashboard', {
                 url: '/dashboard',
-                cache: false,
+                cache: true,
                 templateUrl: 'templates/main/dashboard.html',
                 controller: 'DashboardCtrl',
                 resolve: {

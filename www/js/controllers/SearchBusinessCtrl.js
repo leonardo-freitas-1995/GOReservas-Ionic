@@ -25,6 +25,9 @@
                 .then(function(data){
                     $scope.businessArray = data;
                     $scope.loaded = true;
+                },
+                function(){
+                    Toast.error('Não foi possível comunicar com o servidor. Verifique sua conexão com a internet.');
                 });
             if (typeof cordova === 'object'){
                 cordova.plugins.Keyboard.close();

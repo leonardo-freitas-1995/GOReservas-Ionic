@@ -5,6 +5,9 @@
             on-refresh="refresh()">
         </ion-refresher>
         <div class="list">
+            <a class="item center-align" ng-if="!reserves.length && !loading && !error">
+                Você não possui nenhuma reserva ainda.
+            </a>
             <a class="item item-avatar" ng-repeat="reserve in reserves" ng-href="{{layout.getLink('reserve', {id: reserve.id})}}">
                 <img ng-src="{{reserve.business.imageURL}}">
                 <span class="item-note">

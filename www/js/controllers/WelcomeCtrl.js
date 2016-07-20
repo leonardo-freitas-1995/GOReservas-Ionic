@@ -5,9 +5,7 @@
     Controller.$inject = ['$scope', '$ionicModal', '$ionicPopup', '$ionicSideMenuDelegate', '$state', 'Toast', 'UserResource', 'UserIdentity'];
     function Controller($scope, $ionicModal, $ionicPopup, $ionicSideMenuDelegate, $state, Toast, UserResource, UserIdentity) {
         $ionicSideMenuDelegate.canDragContent(false);
-
-        $scope.$on('$ionicView.leave', function () { $ionicSideMenuDelegate.canDragContent(true) });
-
+        
         $scope.login = function(){
             $scope.loginInfo = {
                 email: "",
@@ -46,7 +44,7 @@
                                                 Toast.error('Email ou senha incorreta.');
                                             }
                                             else{
-                                                Toast.error('Não foi possível conectar com o servidor.');
+                                                Toast.error('Não foi possível comunicar com o servidor. Verifique sua conexão com a internet.');
                                             }
                                         });
                             }
@@ -109,7 +107,7 @@
                         return false;
                     }
                     else{
-                        Toast.error('Não foi possível comunicar com o servidor. Tente novamente mais tarde.');
+                        Toast.error('Não foi possível comunicar com o servidor. Verifique sua conexão com a internet.');
                         return false;
                     }
                 });

@@ -119,7 +119,7 @@
                         Toast.error("É preciso fazer reservas com uma hora de atecedência.");
                     }
                     else{
-                        Toast.error("Não foi possível completar o pedido.");
+                        Toast.error("Ocorreu um erro ao conectar com o servidor. Verifique sua conexão com internet.");
                     }
                 });
         };
