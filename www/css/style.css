@@ -15,11 +15,19 @@
     margin: 0;
     border-radius: 0;
     border-bottom: 1px solid #CED6DF;
+    background: url("../images/sidenav-avatar-bg.jpg") no-repeat center center fixed;
+    background-size: 100% 100%;
 }
 
 .sidenav-card > .item{
+    border: none !important;
     border-radius: 0 !important;
-    background: url("../images/sidenav-avatar-bg.png") no-repeat center center fixed;
+    background: transparent;
+}
+
+.sidenav-card > .item-avatar > img{
+    max-height: 55px;
+    max-width: 55px;
 }
 
 .sidenav-card > .item > h2{
