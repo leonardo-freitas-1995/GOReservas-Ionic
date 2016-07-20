@@ -20,9 +20,7 @@
             $ionicPlatform.registerBackButtonAction(function(e){
 
                 if($state.is('welcome') || $state.is('dashboard')){
-                    if (typeof ionic === 'object'){
-                        ionic.Platform.exitApp();
-                    }
+                    ionic.Platform.exitApp();
                     e.preventDefault();
                 }
                 else{
@@ -30,7 +28,7 @@
                     e.preventDefault();
                 }
 
-            });
+            }, 101);
         });
 
         $rootScope.layout = Layout;
